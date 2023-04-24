@@ -19,6 +19,9 @@ export const fonts = {
   // font weight
   bold: 700,
   semibold: 550,
+
+  // spacing
+  kerning: -0.6,
 }
 
 export const boxes = {
