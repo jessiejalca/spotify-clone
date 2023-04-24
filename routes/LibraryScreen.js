@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar"
 import { StyleSheet, Text, View } from "react-native"
 import { colors, fonts } from "../styles/base"
 
-export default function App() {
+export default function LibraryScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Library</Text>
