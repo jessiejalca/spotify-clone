@@ -1,31 +1,17 @@
-// Spotify Client ID: 2595d0b79d404802aae4ebb44c9798cc
+import { NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import LoginScreen from "./routes/LoginScreen"
+import LibraryScreen from "./routes/LibraryScreen"
 
-import { StatusBar } from "expo-status-bar"
-import { StyleSheet, Text, View } from "react-native"
-import { colors, fonts } from "./styles/base"
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Open up App.js to start working on your app!
-      </Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="LibraryScreen" component={LibraryScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.black,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: colors.white,
-    fontFamily: fonts.primary,
-    fontSize: fonts.lg,
-    fontWeight: fonts.semibold,
-  },
-})
