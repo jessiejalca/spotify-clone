@@ -1,10 +1,9 @@
 // Spotify authentication & token code provided by https://dev.to/dom_the_dev/how-to-use-the-spotify-api-in-your-react-js-app-50pn#authentication
 
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { StatusBar } from "expo-status-bar"
 import { StyleSheet, Text, View, Image, Linking } from "react-native"
 import { colors, fonts } from "../styles/base"
-import axios from "axios"
 import Button from "../components/Button"
 
 export default function LoginScreen({ route, navigation }) {
@@ -14,7 +13,6 @@ export default function LoginScreen({ route, navigation }) {
   const RESPONSE_TYPE = "token"
 
   const [token, setToken] = useState("")
-  const [playlists, setPlaylists] = useState([])
 
   // Get token to access user content
   useEffect(() => {
@@ -35,27 +33,18 @@ export default function LoginScreen({ route, navigation }) {
     setToken(token)
   }, [])
 
-  // Use token to get data from API
-  const getPlaylists = async (e) => {
-    e.preventDefault()
-    const { data } = await axios.get(
-      "https://api.spotify.com/v1/me/playlists",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-
-    setPlaylists(data.items)
-  }
-
-  const openApp = useCallback(() => {
+  const authorize = () => {
     Linking.openURL(
       `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
     )
-    // navigation.push("LibraryScreen")
-  })
+  }
+
+  const openApp = () => {
+    navigation.push("LibraryScreen", {
+      itemId: Math.floor(Math.random() * 100),
+      token: token,
+    })
+  }
 
   return (
     <View style={styles.container}>
@@ -64,11 +53,12 @@ export default function LoginScreen({ route, navigation }) {
         source={require("../assets/spotify-logo.png")}
       />
       <Text style={[styles.text, styles.pageTitle]}>Spotify Simplicity</Text>
-      <Button title="Log in with Spotify" fn={openApp} />
-      {/* Temporary button */}
-      <Button title="Get Playlists" fn={getPlaylists} />
+      {token ? (
+        <Button title="Open App" fn={openApp} />
+      ) : (
+        <Button title="Log in with Spotify" fn={authorize} />
+      )}
       <StatusBar style="auto" />
-      {console.log(playlists)}
     </View>
   )
 }
