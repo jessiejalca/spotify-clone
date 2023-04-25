@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { StyleSheet, View, Text, Image } from "react-native"
 import { FlatList } from "react-native-web"
-import { colors, fonts, boxes } from "../styles/base"
+import { colors, fonts } from "../styles/base"
 import axios from "axios"
+import Track from "../components/Track"
 
 const PlaylistScreen = ({ route, navigation }) => {
   const { name, image, owner, description, id, token } = route.params
@@ -31,39 +32,18 @@ const PlaylistScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       {console.log(tracks)}
-      <Image style={styles.playlistImage} source={{ uri: `${image}` }} />
+      <Image style={styles.image} source={{ uri: `${image}` }} />
       <Text style={[styles.text, styles.pageTitle]}>{name}</Text>
       <Text style={styles.text}>{owner}</Text>
       <Text style={[styles.text, styles.description]}>{description}</Text>
       <FlatList
         data={tracks}
         renderItem={({ item }) => (
-          <View style={styles.trackBox}>
-            <Image
-              style={styles.trackImage}
-              source={{ uri: `${item.track.album.images[0].url}` }}
-            />
-            <View style={styles.trackTextBox}>
-              <Text style={[styles.text, styles.trackTitle]}>
-                {item.track.name}
-              </Text>
-              {/* List artists horizontally */}
-              <View style={styles.artistList}>
-                {item.track.artists.map((artist, index, row) => (
-                  <Text
-                    key={artist.id}
-                    style={[styles.text, styles.trackArtist]}>
-                    {
-                      // if there are more artists, list with a comma and space
-                      index + 1 === row.length
-                        ? `${artist.name}`
-                        : `${artist.name}, `
-                    }
-                  </Text>
-                ))}
-              </View>
-            </View>
-          </View>
+          <Track
+            imageUrl={item.track.album.images[0].url}
+            name={item.track.name}
+            artists={item.track.artists}
+          />
         )}
         keyExtractor={(item) => item.track.id}
       />
@@ -94,34 +74,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 10,
   },
-  playlistImage: {
+  image: {
     width: 230,
     height: 230,
     alignSelf: "center",
     marginBottom: 20,
-  },
-  trackBox: {
-    flexDirection: "row",
-    gap: 5,
-    marginBottom: 10,
-  },
-  trackImage: {
-    width: 50,
-    height: 50,
-  },
-  trackTextBox: {
-    justifyContent: "center",
-    gap: 3,
-  },
-  trackTitle: {
-    fontSize: fonts.md,
-  },
-  trackArtist: {
-    color: colors.lightGrey,
-    fontSize: fonts.xsm,
-  },
-  artistList: {
-    flexDirection: "row",
   },
 })
 
