@@ -1,10 +1,11 @@
-import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native"
+import { StyleSheet, Text, Image, View } from "react-native"
 import { colors, fonts } from "../styles/base"
 
 const Playlist = (props) => {
   console.log(props)
+
   return (
-    <TouchableOpacity style={styles.playlistBox}>
+    <View style={styles.playlistBox}>
       <Image style={styles.image} source={{ uri: `${props.images[0].url}` }} />
       <View style={styles.playlistTextBox}>
         <Text style={[styles.text, styles.playlistTitle]}>{props.name}</Text>
@@ -12,7 +13,7 @@ const Playlist = (props) => {
           {props.owner.display_name}
         </Text>
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 

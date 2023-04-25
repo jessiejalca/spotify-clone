@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native"
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
 import { FlatList } from "react-native-web"
 import { colors, fonts } from "../styles/base"
 import axios from "axios"
@@ -28,6 +28,17 @@ export default function LibraryScreen({ route, navigation }) {
     fetchPlaylists()
   }, [])
 
+  const openPlaylist = (name, image, owner, description, id) => {
+    navigation.push("PlaylistScreen", {
+      name: name,
+      image: image,
+      owner: owner,
+      description: description,
+      id: id,
+      token: token,
+    })
+  }
+
   return (
     <View style={styles.container}>
       {console.log(playlists)}
@@ -38,7 +49,20 @@ export default function LibraryScreen({ route, navigation }) {
       {/* List of playlists */}
       <FlatList
         data={playlists}
-        renderItem={({ item }) => <Playlist {...item} />}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => {
+              openPlaylist(
+                item.name,
+                item.images[0].url,
+                item.owner.display_name,
+                item.description,
+                item.id
+              )
+            }}>
+            <Playlist {...item} />
+          </TouchableOpacity>
+        )}
         keyExtractor={(item) => item.id}
       />
       <StatusBar style="auto" />

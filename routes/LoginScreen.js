@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Image, Linking } from "react-native"
 import { colors, fonts } from "../styles/base"
 import Button from "../components/Button"
 
-export default function LoginScreen({ route, navigation }) {
+export default function LoginScreen({ navigation }) {
   const CLIENT_ID = "d6d826285e034c48bae4e2747477aa3f"
   const REDIRECT_URI = "http://localhost:19006/"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
