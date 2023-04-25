@@ -1,5 +1,5 @@
 import { StyleSheet, View, Image, Text } from "react-native"
-import { colors, fonts, boxes } from "../styles/base"
+import { colors, fonts } from "../styles/base"
 
 const Track = (props) => {
   return (

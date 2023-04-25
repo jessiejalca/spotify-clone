@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { StyleSheet, View, Text, Image } from "react-native"
-import { FlatList } from "react-native-web"
+import { FlatList, TouchableOpacity } from "react-native-web"
 import { colors, fonts } from "../styles/base"
 import axios from "axios"
 import Track from "../components/Track"
@@ -23,15 +23,20 @@ const PlaylistScreen = ({ route, navigation }) => {
       )
 
       setTracks(data.items)
-      console.log(data.items)
     }
 
     fetchTracks()
   }, [])
 
+  const returnToLibrary = () => {
+    navigation.pop()
+  }
+
   return (
     <View style={styles.container}>
-      {console.log(tracks)}
+      <TouchableOpacity onPress={returnToLibrary}>
+        <Text style={styles.text}>Return to Library</Text>
+      </TouchableOpacity>
       <Image style={styles.image} source={{ uri: `${image}` }} />
       <Text style={[styles.text, styles.pageTitle]}>{name}</Text>
       <Text style={styles.text}>{owner}</Text>
