@@ -2,8 +2,6 @@ import { StyleSheet, Text, Image, View } from "react-native"
 import { colors, fonts } from "../styles/base"
 
 const Playlist = (props) => {
-  console.log(props)
-
   return (
     <View style={styles.playlistBox}>
       <Image style={styles.image} source={{ uri: `${props.images[0].url}` }} />

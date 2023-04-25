@@ -41,7 +41,6 @@ export default function LibraryScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      {console.log(playlists)}
       {/* Top Bar */}
       <View>
         <Text style={[styles.text, styles.pageTitle]}>Your Library</Text>
