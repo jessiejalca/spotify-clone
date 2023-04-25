@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontFamily: fonts.primary,
-    fontSize: fonts.sm,
+    fontSize: fonts.md,
   },
   button: {
     alignItems: "center",

@@ -11,14 +11,15 @@ export const fonts = {
   primary: "Montserrat",
 
   // sizes
-  sm: 14,
-  md: 16,
+  sm: 12,
+  md: 14,
   lg: 18,
   lgr: 24,
 
   // font weight
   bold: 700,
   semibold: 550,
+  medium: 400,
 
   // spacing
   kerning: -0.6,
