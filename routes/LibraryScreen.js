@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import { StatusBar } from "expo-status-bar"
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native"
+import { FlatList } from "react-native-web"
 import { colors, fonts } from "../styles/base"
 import axios from "axios"
-import { FlatList } from "react-native-web"
+import Playlist from "../components/Playlist"
 
 export default function LibraryScreen({ route, navigation }) {
   const { token } = route.params
@@ -37,22 +38,7 @@ export default function LibraryScreen({ route, navigation }) {
       {/* List of playlists */}
       <FlatList
         data={playlists}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.playlistBox}>
-            <Image
-              style={styles.image}
-              source={{ uri: `${item.images[0].url}` }}
-            />
-            <View style={styles.playlistTextBox}>
-              <Text style={[styles.text, styles.playlistTitle]}>
-                {item.name}
-              </Text>
-              <Text style={[styles.text, styles.playlistOwner]}>
-                {item.owner.display_name}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={({ item }) => <Playlist {...item} />}
         keyExtractor={(item) => item.id}
       />
       <StatusBar style="auto" />
@@ -75,27 +61,5 @@ const styles = StyleSheet.create({
     fontWeight: fonts.bold,
     marginBottom: 20,
     letterSpacing: fonts.kerning,
-  },
-  playlistTitle: {
-    fontSize: fonts.md,
-    fontWeight: fonts.semibold,
-  },
-  playlistOwner: {
-    color: colors.lightGrey,
-    fontSize: fonts.sm,
-    fontWeight: fonts.medium,
-  },
-  playlistBox: {
-    flexDirection: "row",
-    gap: 10,
-    marginBottom: 10,
-  },
-  playlistTextBox: {
-    justifyContent: "center",
-    gap: 3,
-  },
-  image: {
-    width: 50,
-    height: 50,
   },
 })
